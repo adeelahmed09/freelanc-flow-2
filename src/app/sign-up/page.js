@@ -4,7 +4,7 @@ import { inter } from '../components/font'
 import Input from '../components/sign-up/Input'
 import InputPassword from '../components/sign-up/InputPassword'
 
-function page() {
+function Page() {
     const [formData, setFormData] = useState({
         username:"",
         name:"",
@@ -38,4 +38,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
