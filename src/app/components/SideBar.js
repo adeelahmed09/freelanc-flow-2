@@ -15,7 +15,7 @@ import {
 function SideBar() {
   const pathname = usePathname();
   return (
-    <div className="w-[23vw] h-full bg-[#1E1E1E] px-2 flex flex-col  gap-[70px] py-8 rounded-3xl ">
+    <div className="w-[23vw] h-full bg-[#1E1E1E] px-2 sm:flex hidden flex-col  gap-[70px] py-8 rounded-3xl ">
       <div>
         <Image
           src={"/newBgLogo.png"}
