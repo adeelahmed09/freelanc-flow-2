@@ -9,14 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
     "gsap": "^3.13.0",
     "lucide-react": "^0.539.0",
     "mongoose": "^8.17.1",
     "next": "15.4.6",
+    "next-auth": "^4.24.11",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-redux": "^9.2.0",
     "react-toastify": "^11.0.5",
     "tailwind-scrollbar": "^4.0.2"
   },

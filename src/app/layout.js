@@ -2,6 +2,7 @@ import { ToastContainer } from "react-toastify";
 import Nav from "./components/Nav";
 import SideBar from "./components/SideBar";
 import "./globals.css";
+import AuthProvider from "./provider/Provider";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,27 +13,29 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`antialiased w-screen h-screen gap-2 flex overflow-hidden bg-[#121212] p-2.5`}
+        className={`antialiased w-screen h-screen gap-2 flex pt-2 overflow-hidden bg-[#121212] `}
       >
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
-        <SideBar />
-        <div className="sm:w-[75vw] fixed top-2.5 right-1 w-full  h-full ">
-          <Nav />
-          <div className="w-full h-full  mt-2 scrollbar   overflow-auto">
-            {children}
+        <AuthProvider>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+          <SideBar />
+          <div className="sm:w-[75vw] fixed top-2.5 right-2 w-full  h-full ">
+            <Nav />
+            <div className="w-full h-full  mt-2 scrollbar   overflow-auto">
+              {children}
+            </div>
           </div>
-        </div>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@
 import React from "react";
 import { inter } from "../font";
 
-function Input({ LableText, Value, FieldName, fnc, Placeholder }) {
+function Input({ LableText, Value, FieldName, fnc, Placeholder,type }) {
   return (
     <div>
       <label
@@ -12,7 +12,7 @@ function Input({ LableText, Value, FieldName, fnc, Placeholder }) {
         {LableText}
       </label>
       <input
-        type="text"
+        type={type?type:"text"}
         id="username"
         value={Value}
         name={FieldName}

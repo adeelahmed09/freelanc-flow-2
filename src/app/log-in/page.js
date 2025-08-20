@@ -1,35 +1,27 @@
 "use client";
 import React, { useState } from "react";
+import Loader from "../components/Loader";
 import { inter } from "../components/font";
 import Input from "../components/sign-up/Input";
 import InputPassword from "../components/sign-up/InputPassword";
-import Loader from "../components/Loader";
-import axios from "axios";
-import { toast } from "react-toastify";
+import notify from "../components/Notify";
+import { signIn } from 'next-auth/react'
 import { useRouter } from "next/navigation";
 
 function Page() {
+  const router = useRouter();
+  const [Loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
-    name: "",
-    email: "",
     password: "",
-    confirmPassword: "",
   });
-  const [Loading, setLoading] = useState(false);
-  const router = useRouter();
-  //<---- functions ---->
-  const notify = (type, message) => {
-    toast[type](message, {
-      position: "top-right",
-      autoClose: 5000,
-      theme: "colored",
-    });
-  };
+  
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -41,53 +33,38 @@ function Page() {
     }
 
     try {
-      await axios.post("/api/sign-up", formData);
-      notify("success", "Successfully Created Profile!");
-      setFormData({
+      await signIn("credentials", {
+            username: formData.username,
+            password: formData.password,
+        });
+        setFormData({
         username: "",
-        email: "",
         password: "",
-        confirmPassword: "",
-        name: "",
       });
-      setTimeout(() => router.push("/log-in"), 500);
+      setTimeout(() => router.push("/"), 500);
+      notify("success", "Successfully Logged In");
     } catch (err) {
       notify("error", err?.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
-
   return (
-    <div className="w-full h-[83.5%] bg-[#1E1E1E] flex relative justify-center items-center rounded-2xl overflow-hidden ">
+    <div className="w-full h-[83.5%] bg-[#1E1E1E] flex relative justify-center items-center rounded-2xl overflow-hidden">
       <Loader loading={Loading} />
       <div className="p-5 w-[300px] flex flex-col justify-center items-center bg-[#313131] rounded-2xl custom-shadow">
         <h1
           className={`${inter.className} text-2xl font-semibold text-[#EAEAEA]`}
         >
-          Sign Up
+          Log In
         </h1>
         <form onSubmit={onSubmitHandler} className="flex flex-col gap-2">
           <Input
-            LableText={"Username:"}
+            LableText={"Username / Email:"}
             Value={formData.username}
             FieldName={"username"}
             fnc={onChangeHandler}
-            Placeholder={"Enter Username"}
-          />
-          <Input
-            LableText={"Name:"}
-            Value={formData.name}
-            FieldName={"name"}
-            fnc={onChangeHandler}
-            Placeholder={"Enter Name"}
-          />
-          <Input
-            LableText={"Email:"}
-            Value={formData.email}
-            FieldName={"email"}
-            fnc={onChangeHandler}
-            Placeholder={"Enter Email"}
+            Placeholder={"Enter Email or Username"}
           />
           <InputPassword
             LableText={"Password:"}
@@ -101,7 +78,7 @@ function Page() {
               type="submit"
               className="px-3 py-2 font-bold text-[#EAEAEA] bg-[#8F6EFB] rounded-xl"
             >
-              Sign Up
+              Log In
             </button>
           </div>
         </form>
